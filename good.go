@@ -79,7 +79,11 @@ func Build(path string) error {
 	}
 
 	if p.Name == "" {
-		p.Name = filepath.Base(path)
+		abs, err := filepath.Abs(path)
+		if err != nil {
+			return err
+		}
+		p.Name = filepath.Base(abs)
 	}
 
 	bdir := filepath.Join(path, p.Dir)

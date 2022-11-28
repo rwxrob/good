@@ -6,9 +6,9 @@ import (
 )
 
 var Cmd = &Z.Cmd{
-	Name:      `good`,
-	Aliases:   []string{`go`},
-	Version:   `v0.1.1`,
+	Name:      `go`,
+	Aliases:   []string{`good`},
+	Version:   `v0.1.2`,
 	Summary:   `go helper commands and tasks`,
 	Copyright: `Copyright 2022 Robert S Muhlestein`,
 	License:   `Apache-2.0`,

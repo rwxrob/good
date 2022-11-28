@@ -6,10 +6,13 @@ import (
 )
 
 var Cmd = &Z.Cmd{
-	Name:     `good`,
-	Aliases:  []string{`go`},
-	Summary:  `go helper commands and tasks`,
-	Commands: []*Z.Cmd{help.Cmd, buildCmd},
+	Name:      `good`,
+	Aliases:   []string{`go`},
+	Version:   `v0.1.0`,
+	Summary:   `go helper commands and tasks`,
+	Copyright: `Copyright 2022 Robert S Muhlestein`,
+	License:   `Apache-2.0`,
+	Commands:  []*Z.Cmd{help.Cmd, buildCmd},
 }
 
 var buildCmd = &Z.Cmd{

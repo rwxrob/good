@@ -7,7 +7,7 @@ import (
 )
 
 func ExampleReadBuildParams() {
-	bp, err := good.ReadBuildParams(`testdata/build.yaml`)
+	bp, err := good.ReadBuildParams(`testdata/foo`)
 
 	if err != nil {
 		fmt.Println(err)
@@ -18,3 +18,17 @@ func ExampleReadBuildParams() {
 	// {windows [amd64]}
 
 }
+
+/*
+func ExampleBuild() {
+
+	// as file path
+	if err := good.Build(`testdata/foo`); err != nil {
+		fmt.Println(err)
+	}
+
+	// Output:
+	// ignored
+
+}
+*/

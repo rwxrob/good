@@ -14,6 +14,7 @@ import (
 )
 
 var BuildDirName = `build`
+var BuildNameDelim = `-`
 
 type BuildTarget struct {
 	OS   string   // go dist compatible os (GOOS)
@@ -24,6 +25,9 @@ type BuildParams struct {
 
 	// name of the binary to build
 	Name string
+
+	// delimiter between name, os, arch (BuildNameDelim)
+	Delim string
 
 	// relative directory to that containing build.yaml in which to build
 	Dir string
@@ -78,6 +82,10 @@ func Build(path string) error {
 		p.Dir = BuildDirName
 	}
 
+	if p.Delim == "" {
+		p.Delim = BuildNameDelim
+	}
+
 	if p.Name == "" {
 		abs, err := filepath.Abs(path)
 		if err != nil {
@@ -111,9 +119,13 @@ func Build(path string) error {
 	for _, target := range p.Targets {
 		for _, arch := range target.Arch {
 			log.Printf(`Building for %v/%v`, target.OS, arch)
-			name := fmt.Sprintf(`%v_%v_%v`, p.Name, target.OS, arch)
-			os.Setenv(`GOOS`, target.OS)
-			os.Setenv(`GOARCH`, arch)
+			name := fmt.Sprintf(`%v%v%v%v%v`, p.Name, p.Delim, target.OS, p.Delim, arch)
+			if err := os.Setenv(`GOOS`, target.OS); err != nil {
+				return err
+			}
+			if err := os.Setenv(`GOARCH`, arch); err != nil {
+				return err
+			}
 			if target.OS == `windows` {
 				name += `.exe`
 			}
